@@ -1,536 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Ben Godard | Academic Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    :root {
-      --bg: #020617;
-      --card-bg: #020617;
-      --fg: #f9fafb;
-      --muted: #9ca3af;
-      --accent: #22c55e;
-      --accent-soft: #16a34a22;
-      --border: #1f2937;
-      --link: #38bdf8;
-      --mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+<meta charset="UTF-8">
+<title>Ben Godard | Academic Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bg: #020617;
+  --fg: #f9fafb;
+  --muted: #9ca3af;
+  --accent: #22c55e;
+  --border: #1f2937;
+  --link: #38bdf8;
+  --mono: "SF Mono", Menlo, Monaco, Consolas, monospace;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
 
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; margin:0; padding:0; }
 
-    body {
-      margin: 0;
-      font-family: var(--sans);
-      background:
-        radial-gradient(circle at top left, #0f172a, #020617 55%),
-        radial-gradient(circle at bottom right, #111827, #020617 60%);
-      color: var(--fg);
-      line-height: 1.6;
-    }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--fg);
+  line-height:1.6;
+}
 
-    a { color: var(--link); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+a { color: var(--link); text-decoration:none; }
+a:hover { text-decoration:underline; }
 
-    header {
-      border-bottom: 1px solid var(--border);
-      background: rgba(2, 6, 23, 0.92);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
+header {
+  background: rgba(2,6,23,0.95);
+  border-bottom:1px solid var(--border);
+  position: sticky;
+  top:0;
+  z-index:50;
+}
 
-    .nav {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
+.nav { max-width:960px; margin:0 auto; padding:0.75rem 1.5rem; display:flex; justify-content:space-between; align-items:center; }
+.nav-left { font-family:var(--mono); font-size:0.9rem; letter-spacing:0.08em; color:var(--muted); }
+.nav-right a { margin-left:1rem; padding:0.25rem 0.5rem; border-radius:999px; }
+.nav-right a:hover { background:#111827; }
 
-    .nav-left {
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+main { max-width:960px; margin:2rem auto; padding:0 1.5rem; }
 
-    .nav-right {
-      display: flex;
-      gap: 1rem;
-      font-size: 0.9rem;
-    }
+section { margin-bottom:3rem; }
+section h2 { font-family:var(--mono); text-transform:uppercase; color:var(--muted); font-size:1rem; margin-bottom:1rem; }
 
-    .nav-right a {
-      padding: 0.25rem 0.5rem;
-      border-radius: 999px;
-    }
+.card { background:#020617; border:1px solid var(--border); border-radius:12px; padding:1.25rem 1.5rem; margin-bottom:1rem; }
+.card h3 { margin-bottom:0.5rem; }
+.card p { margin-bottom:0.5rem; }
 
-    .nav-right a:hover {
-      background: #111827;
-      text-decoration: none;
-    }
+.video-grid { display:flex; flex-wrap:wrap; gap:1rem; margin-top:1rem; }
+.video-grid video { width: calc(50% - 0.5rem); border-radius:12px; border:1px solid var(--border); }
+@media (max-width:768px) { .video-grid video { width:100%; } }
 
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      gap: 2.5rem;
-      margin-bottom: 3rem;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; }
-    }
-
-    .hero-title {
-      font-size: 2.4rem;
-      line-height: 1.1;
-      margin: 0 0 0.5rem;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-subtitle {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .hero-meta {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-meta span {
-      display: inline-block;
-      margin-right: 0.65rem;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .tag {
-      font-size: 0.8rem;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      padding: 0.25rem 0.75rem;
-      background: #020617;
-      color: var(--muted);
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.45rem 0.9rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      font-size: 0.85rem;
-      font-weight: 500;
-      background: #020617;
-      color: var(--fg);
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #022c22;
-      border-color: var(--accent);
-    }
-
-    .btn-outline { background: transparent; }
-
-    .btn:hover {
-      box-shadow: 0 1px 6px rgba(15, 23, 42, 0.6);
-      text-decoration: none;
-      border-color: #4b5563;
-    }
-
-    .hero-note {
-      font-size: 0.85rem;
-      color: var(--muted);
-      font-family: var(--mono);
-      margin-top: 0.5rem;
-    }
-
-    .hero-right {
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: radial-gradient(circle at top left, #111827, #020617);
-      padding: 1.25rem 1.5rem;
-      font-size: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      align-items: center;
-      text-align: left;
-    }
-
-    .hero-right-inner { width: 100%; }
-
-    .hero-right h3 {
-      margin-top: 0;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-family: var(--mono);
-    }
-
-    .hero-right p { margin: 0.4rem 0; }
-
-    .profile-img-wrapper {
-      width: 120px;
-      height: 120px;
-      border-radius: 999px;
-      overflow: hidden;
-      border: 2px solid #1f2937;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.9);
-      flex-shrink: 0;
-    }
-
-    .profile-img-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 1.5rem;
-    }
-
-    section { margin-bottom: 3rem; }
-
-    section h2 {
-      font-size: 1rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-family: var(--mono);
-      color: var(--muted);
-      margin: 0 0 1rem;
-    }
-
-    .col-span-4 { grid-column: span 4; }
-    .col-span-8 { grid-column: span 8; }
-
-    @media (max-width: 768px) {
-      .col-span-4,
-      .col-span-8 { grid-column: span 12; }
-    }
-
-    .card {
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: #020617;
-      padding: 1.25rem 1.5rem;
-    }
-
-    .card + .card { margin-top: 1rem; }
-
-    .eyebrow {
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-family: var(--mono);
-      margin-bottom: 0.15rem;
-    }
-
-    .card h3 {
-      margin: 0.2rem 0 0.35rem;
-      font-size: 1rem;
-    }
-
-    .card h4 {
-      margin: 0.25rem 0;
-      font-size: 0.9rem;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.5rem;
-      font-size: 0.8rem;
-    }
-
-    .pill {
-      border-radius: 999px;
-      background: var(--accent-soft);
-      padding: 0.15rem 0.55rem;
-      color: var(--muted);
-    }
-
-    .footer {
-      border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      flex-wrap: wrap;
-      font-family: var(--mono);
-    }
-  </style>
+.hero { display:flex; flex-wrap:wrap; align-items:center; gap:2rem; margin-bottom:3rem; }
+.hero-left { flex:1; }
+.hero-right { flex:1; max-width:200px; display:flex; flex-direction:column; align-items:center; }
+.hero-title { font-size:2.4rem; margin-bottom:0.5rem; }
+.hero-subtitle { color:var(--muted); margin-bottom:0.5rem; }
+.hero-buttons a { margin-right:0.5rem; padding:0.4rem 0.8rem; border-radius:999px; border:1px solid var(--border); text-decoration:none; color:var(--fg); }
+.hero-buttons a:hover { background:var(--accent); border-color:var(--accent); color:#022c22; }
+.profile-img-wrapper { width:150px; height:150px; border-radius:999px; overflow:hidden; border:2px solid var(--border); margin-bottom:1rem; }
+.profile-img-wrapper img { width:100%; height:100%; object-fit:cover; }
+</style>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <div class="nav-left">Ben&nbsp;Godard · Portfolio</div>
-      <nav class="nav-right">
-        <a href="#research">Research</a>
-        <a href="#work">Work &amp; Research</a>
-        <a href="#teaching">Teaching</a>
-        <a href="#creative">Creative</a>
-        <a href="#cv">CV</a>
-      </nav>
+
+<header>
+<div class="nav">
+  <div class="nav-left">Ben Godard · Portfolio</div>
+  <div class="nav-right">
+    <a href="#research">Research</a>
+    <a href="#work">Work</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#creative">Creative</a>
+    <a href="#cv">CV</a>
+  </div>
+</div>
+</header>
+
+<main>
+
+<section id="top" class="hero">
+  <div class="hero-left">
+    <h1 class="hero-title">Ben Godard</h1>
+    <p class="hero-subtitle">Ph.D. Student in Applied Linguistics & Technology | Iowa State University</p>
+    <div class="hero-buttons">
+      <a href="#research">Research</a>
+      <a href="#work">Work</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#creative">Creative Work</a>
+      <a href="#cv">CV</a>
     </div>
-  </header>
+    <p style="margin-top:1rem;">Working at the intersection of generative AI, corpus linguistics, music, and pronunciation.</p>
+  </div>
+  <div class="hero-right">
+    <div class="profile-img-wrapper">
+      <img src="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/ben_profile.jpg" alt="Ben Godard portrait">
+    </div>
+    <p style="text-align:center; font-size:0.85rem; color:var(--muted);">
+      Ph.D. candidate investigating song lyrics and AI-generated music for teaching connected speech.
+    </p>
+  </div>
+</section>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="top">
-      <div>
-        <h1 class="hero-title">Ben Godard</h1>
-        <div class="hero-subtitle">Ph.D. Student in Applied Linguistics &amp; Technology</div>
-        <div class="hero-meta">
-          <span>Iowa State University</span> ·
-          <span>Corpus Linguistics · Generative AI · Song Lyrics · Pronunciation</span>
-        </div>
-        <div class="hero-tags">
-          <span class="tag">Song Lyrics</span>
-          <span class="tag">Generative AI</span>
-          <span class="tag">Corpus Linguistics</span>
-          <span class="tag">Connected Speech</span>
-          <span class="tag">Language Assessment</span>
-        </div>
-        <div class="hero-buttons">
-          <a class="btn btn-primary" href="#research">View Research</a>
-          <a class="btn" href="#work">Work &amp; Research</a>
-          <a class="btn" href="#teaching">Teaching</a>
-          <a class="btn" href="#creative">Creative Work</a>
-          <a class="btn btn-outline" href="#cv">Download CV</a>
-        </div>
-        <div class="hero-note">
-          Working at the intersection of generative AI, corpus linguistics, music, and pronunciation.
-        </div>
-      </div>
+<section id="research">
+<h2>Research</h2>
+<div class="card">
+  <h3>Dissertation: Song Lyrics & AI for Teaching Connected Speech</h3>
+  <p>Advisor: Sinem Sonsaat-Hegelheimer, Ph.D.</p>
+  <p>Focus on connected speech, vowel contrasts, stress, rhythm, and phonological development using human and AI-generated lyrics.</p>
+</div>
+</section>
 
-      <aside class="hero-right">
-        <div class="profile-img-wrapper">
-          <img src="ben_profile.jpg" alt="Portrait of Ben Godard">
-        </div>
-        <div class="hero-right-inner">
-          <h3>Scholar Profile</h3>
-          <p>
-            I am a Ph.D. candidate at Iowa State University investigating how song lyrics and AI-generated
-            music can be used to teach connected speech and pronunciation.
-          </p>
-          <p>
-            My work integrates corpus linguistics, generative AI, acoustic analysis, and language assessment
-            to explore linguistic variation across human- and AI-generated texts.
-          </p>
-        </div>
-      </aside>
-    </section>
+<section id="work">
+<h2>Work & Research</h2>
 
-    <!-- RESEARCH OVERVIEW -->
-    <section id="research">
-      <div class="grid">
-        <div class="col-span-4">
-          <h2>Primary Research</h2>
-          <p>
-            Dissertation and corpus projects focused on pronunciation, connected speech, and AI vs.
-            human-authored song lyrics.
-          </p>
-        </div>
-        <div class="col-span-8">
-          <article class="card">
-            <div class="eyebrow">Dissertation · In Progress</div>
-            <h3>Using Song Lyrics and AI-Generated Music to Teach Connected Speech</h3>
-            <h4>Advisor: Sinem Sonsaat-Hegelheimer, Ph.D.</h4>
-            <p>
-              Focus on connected speech, vowel contrasts, stress, rhythm, and phonological development
-              using both human-authored and AI-generated lyrics in instructional contexts.
-            </p>
-            <div class="pill-row">
-              <span class="pill">Connected speech</span>
-              <span class="pill">Pronunciation</span>
-              <span class="pill">AI vs. human lyrics</span>
-              <span class="pill">Acoustic analysis</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="card">
+  <h3>GetPronounce.com · Review</h3>
+  <p>Critical review of AI pronunciation support and pedagogical affordances.</p>
+  <p><a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/Work:Research:Publication/GetPronounce/Software%20Review_%20GetPronounce.com%20%E2%80%94%20Benjamin%20Godard.html" target="_blank">Open GetPronounce.com review</a></p>
+</div>
 
-    <!-- WORK & RESEARCH LINKS -->
-    <section id="work">
-      <div class="grid">
-        <div class="col-span-4">
-          <h2>Work &amp; Research</h2>
-          <p>
-            Selected reviews and research papers in pronunciation and technology.
-          </p>
-        </div>
-        <div class="col-span-8">
-          <article class="card">
-            <div class="eyebrow">Software Review</div>
-            <h3>GetPronounce.com · Critical Review</h3>
-            <p>
-              Critical review of GetPronounce.com, focusing on pronunciation support and pedagogical affordances.
-            </p>
-            <p style="font-size:0.9rem;">
-              <a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/Work%20and%20Research/GetPronounce_Critical_Review.html" target="_blank">
-                Open GetPronounce.com review (local file)
-              </a>
-            </p>
-          </article>
+<div class="card">
+  <h3>YouGlish · Review</h3>
+  <p>Evaluation of L2 pronunciation learning via YouGlish.</p>
+  <p><a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/Work:Research:Publication/YouGlish/Godard_2024_Review_YouGlish.html" target="_blank">Open YouGlish review</a></p>
+</div>
 
-          <article class="card">
-            <div class="eyebrow">Software Review</div>
-            <h3>YouGlish · Review</h3>
-            <p>
-              Review of YouGlish with emphasis on L2 pronunciation, input enhancement, and learner autonomy.
-            </p>
-            <p style="font-size:0.9rem;">
-              <a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/Work%20and%20Research/Godard_2024_Review_YouGlish.html" target="_blank">
-                Open YouGlish review (local file)
-              </a>
-            </p>
-          </article>
+<div class="card">
+  <h3>Master's Research Paper</h3>
+  <p>Acoustic analysis of L2 French vowel contrasts with detailed learner production study.</p>
+  <p><a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/Work:Research:Publication/MastersDegreePaper/Godard_2023_L2_French_Vowels.html" target="_blank">Open Master's research paper</a></p>
+</div>
 
-          <article class="card">
-            <div class="eyebrow">Master's Research</div>
-            <h3>Master's Degree Research Paper</h3>
-            <p>
-              Acoustic analysis of L2 French vowel contrasts with detailed examination of learner production.
-            </p>
-            <p style="font-size:0.9rem;">
-              <a href="file:///Users/godardb/Downloads/Acoustic%20Analysis%20of%20L2-French%20Vowel%20Contrasts%20%E2%80%94%20Godard%20(2023).htm" target="_blank">
-                Open master's research paper (local file)
-              </a>
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="card">
+  <h3>Bitch Poster (2025)</h3>
+  <p>
+    <a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/Work:Research:Publication/BitchPoster/Godard,%20B%20(2025).%20Bitch%20Poster.jpg" target="_blank">
+      View Poster (Image)
+    </a>
+  </p>
+  <p>
+    <a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/Work:Research:Publication/BitchPoster/bitch_poster_webpage.html" target="_blank">
+      The Word Bitch In Song Lyrics
+    </a>
+  </p>
+</div>
 
-    <!-- TEACHING -->
-    <section id="teaching">
-      <div class="grid">
-        <div class="col-span-4">
-          <h2>Teaching &amp; Roles</h2>
-          <p>
-            Instructor of record and assessment specialist in academic writing, public speaking, and French.
-          </p>
-        </div>
-        <div class="col-span-8">
-          <article class="card">
-            <div class="eyebrow">Instructor of Record</div>
-            <h3>Course Instruction and Curriculum Design</h3>
-            <ul>
-              <li>Academic Writing for Graduate Students (ENGL 1010D)</li>
-              <li>Academic Writing for Multilingual Students (ENGL 1010B)</li>
-              <li>Fundamentals of Public Speaking</li>
-              <li>Advanced French Conversation</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
+</section>
 
-    <!-- CREATIVE -->
-    <section id="creative">
-      <div class="grid">
-        <div class="col-span-4">
-          <h2>Creative Work</h2>
-          <p>
-            Bridging academic research and digital production through music, AI experimentation, and
-            live video work.
-          </p>
-        </div>
-        <div class="col-span-8">
-          <article class="card">
-            <div class="eyebrow">YouTube Channel</div>
-            <h3>The Cosmic Reveries</h3>
-            <p>
-              Original music and AI-informed creative projects aligned with research on song lyrics and
-              pronunciation.
-            </p>
-            <p>
-              <a class="btn btn-outline" href="https://www.youtube.com/@TheCosmicReveries"
-                 target="_blank" rel="noopener noreferrer">
-                Visit YouTube Channel
-              </a>
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
+<section id="teaching">
+<h2>Teaching</h2>
+<div class="card">
+  <h3>Instructor of Record</h3>
+  <ul>
+    <li>Academic Writing for Graduate Students</li>
+    <li>Multilingual Academic Writing</li>
+    <li>Public Speaking Fundamentals</li>
+    <li>Advanced French Conversation</li>
+  </ul>
+</div>
+</section>
 
-    <!-- CV -->
-    <section id="cv">
-      <div class="grid">
-        <div class="col-span-4">
-          <h2>Curriculum Vitae</h2>
-          <p>
-            Full academic CV including publications, conference presentations, and teaching history.
-          </p>
-        </div>
-        <div class="col-span-8">
-          <div class="card">
-            <p>
-              <a class="btn btn-primary" href="CV_Ben_Godard.pdf" target="_blank" rel="noopener noreferrer">
-                Download CV (PDF)
-              </a>
-            </p>
-            <p style="font-size:0.9rem; color:var(--muted);">
-              Replace this with the actual hosted CV path when deploying.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+<section id="creative">
+<h2>Creative Work</h2>
+<div class="card">
+  <h3>The Snozzberries · Video Project</h3>
+  <video controls style="width:100%; margin-top:0.5rem; border-radius:12px; border:1px solid var(--border);">
+    <source src="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/The%20Snozzberries.M4V" type="video/mp4">
+  </video>
+</div>
+</section>
 
-    <footer class="footer">
-      <span>© <span id="year"></span> Ben Godard</span>
-      <span>Applied Linguistics &amp; Technology · Iowa State University</span>
-    </footer>
-  </main>
+<section id="cv">
+<h2>Curriculum Vitae</h2>
+<div class="card">
+  <p><a href="file:///Users/godardb/Documents/ALT%20-%20Courses%20and%20Research%20/Portfolio_site/CV.pdf" target="_blank">Download CV (PDF)</a></p>
+</div>
+</section>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+</main>
 </body>
 </html>
+<section id="cv">
+  <h2>Curriculum Vitae</h2>
+  <div class="card">
+    <p>
+      View my full academic CV including education, publications,
+      conference presentations, teaching experience, and research.
+    </p>
+    <a class="button" href="godard_cv.html" target="_blank" rel="noopener">
+      View Full CV
+    </a>
+  </div>
+</section>
